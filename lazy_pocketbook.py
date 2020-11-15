@@ -1,28 +1,6 @@
 import paramiko
 import pyxhook
-
-try:
-    host = 'ip'
-    port = 22
-    username = 'root'
-    password = 'password'
-
-    forward = 'cat f.txt > /dev/input/event0'
-    backward = 'cat b.txt > /dev/input/event0'
-    home = 'cat h.txt > /dev/input/event0'
-    option = 'cat o.txt > /dev/input/event0'
-
-    ssh = paramiko.SSHClient()
-    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-
-    ssh.connect(host, port, username, password)
-
-    print('Connected')
-
-except Exception:
-    print('Lack of connection, session aborted')
-    exit()
-
+from plyer import notification
 
 def OnKeyPress(event):
     print (event.Key)
@@ -42,6 +20,40 @@ def OnKeyPress(event):
     # press 5 to exit
     elif event.Ascii == 53:
         exit()
+
+
+try:
+    host = '169.254.0.1'
+    port = 22
+    username = 'root'
+    password = '1257'
+
+    forward = 'cat f.txt > /dev/input/event0'
+    backward = 'cat b.txt > /dev/input/event0'
+    home = 'cat h.txt > /dev/input/event0'
+    option = 'cat o.txt > /dev/input/event0'
+
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+    ssh.connect(host, port, username, password)
+
+    print('Connected to PocketBook')
+    print('\007')
+    notification.notify(
+        title = 'Connected To PocketBook',
+        timeout = 2
+    )
+
+
+except Exception:
+    print('Lack of connection, session aborted')
+    print('\007')
+    notification.notify(
+        title = 'Lack of connection, session aborted',
+        timeout = 2
+    )
+    exit()
 
 
 hm = pyxhook.HookManager()
