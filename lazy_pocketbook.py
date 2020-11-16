@@ -2,27 +2,49 @@ import paramiko
 import pyxhook
 from plyer import notification
 
+# Alt_L 233
+# Control_L 227
+# Shift_L 225
+
+
 def OnKeyPress(event):
-    print (event.Key)
+    global ctrl_on
+    global alt_on
 
-    # press 1 to forward
-    if event.Ascii == 49:
-        ssh.exec_command(forward)
-    # press 2 to backward
+    print (event.Key, event.Ascii)
+
+    if event.Ascii == 227:
+        ctrl_on = True
+    elif event.Ascii == 233:
+        if ctrl_on:
+            alt_on = True
+    elif event.Ascii == 49:
+        if ctrl_on and alt_on:
+            print('hejka')
+            ssh.exec_command(forward)
+            ctrl_on = False
+            alt_on = False
     elif event.Ascii == 50:
-        ssh.exec_command(backward)
-    # press 3 to home
+        if ctrl_on and alt_on:
+            print('hejka')
+            ssh.exec_command(backward)
+            ctrl_on = False
+            alt_on = False
     elif event.Ascii == 51:
-        ssh.exec_command(home)
-    # press 4 to option
+        if ctrl_on and alt_on:
+            print('hejka')
+            ssh.exec_command(home)
+            ctrl_on = False
+            alt_on = False
     elif event.Ascii == 52:
-        ssh.exec_command(option)
-    # press 5 to exit
-    elif event.Ascii == 53:
-        exit()
-
+        if ctrl_on and alt_on:
+            print('hejka')
+            ssh.exec_command(option)
+            ctrl_on = False
+            alt_on = False
 
 try:
+    
     host = '169.254.0.1'
     port = 22
     username = 'root'
@@ -54,9 +76,11 @@ except Exception:
         timeout = 2
     )
     exit()
-
+ctrl_on = False
+alt_on = False
 
 hm = pyxhook.HookManager()
 hm.KeyDown = OnKeyPress
 hm.HookKeyboard()
 hm.start()
+ 
