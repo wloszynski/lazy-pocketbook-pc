@@ -20,25 +20,21 @@ def OnKeyPress(event):
             alt_on = True
     elif event.Ascii == 49:
         if ctrl_on and alt_on:
-            print('hejka')
             ssh.exec_command(forward)
             ctrl_on = False
             alt_on = False
     elif event.Ascii == 50:
         if ctrl_on and alt_on:
-            print('hejka')
             ssh.exec_command(backward)
             ctrl_on = False
             alt_on = False
     elif event.Ascii == 51:
         if ctrl_on and alt_on:
-            print('hejka')
             ssh.exec_command(home)
             ctrl_on = False
             alt_on = False
     elif event.Ascii == 52:
         if ctrl_on and alt_on:
-            print('hejka')
             ssh.exec_command(option)
             ctrl_on = False
             alt_on = False
