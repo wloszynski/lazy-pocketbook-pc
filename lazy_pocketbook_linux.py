@@ -1,6 +1,8 @@
 import paramiko
 import pyxhook
 from plyer import notification
+import time
+import sys
 
 # Alt_L 233
 # Control_L 227
@@ -38,6 +40,11 @@ def OnKeyPress(event):
             ssh.exec_command(option)
             ctrl_on = False
             alt_on = False
+    # elif event.Ascii == 53:
+    #     if ctrl_on and alt_on:
+    #         hm.cancel()
+    #         exit()
+            
 
 try:
     
@@ -79,4 +86,18 @@ hm = pyxhook.HookManager()
 hm.KeyDown = OnKeyPress
 hm.HookKeyboard()
 hm.start()
- 
+
+running = True
+
+while running:
+    time.sleep(0.1)
+    if ssh.get_transport() is not None:
+        if(ssh.get_transport().is_active() == False):
+            print('Lack of connection, session aborted')
+            print('\007')
+            notification.notify(
+                title = 'Lack of connection, session aborted',
+                timeout = 2
+            )
+            hm.cancel()
+            break
