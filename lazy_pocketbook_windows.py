@@ -1,50 +1,18 @@
 import paramiko
-import pyxhook
+import keyboard
 from plyer import notification
 import time
-import sys
 
 # Alt_L 233
 # Control_L 227
 # Shift_L 225
-
-
-def OnKeyPress(event):
-    global ctrl_on
-    global alt_on
-
-    print (event.Key, event.Ascii)
-
-    if event.Ascii == 227:
-        ctrl_on = True
-    elif event.Ascii == 233:
-        if ctrl_on:
-            alt_on = True
-    elif event.Ascii == 49:
-        if ctrl_on and alt_on:
-            ssh.exec_command(forward)
-            ctrl_on = False
-            alt_on = False
-    elif event.Ascii == 50:
-        if ctrl_on and alt_on:
-            ssh.exec_command(backward)
-            ctrl_on = False
-            alt_on = False
-    elif event.Ascii == 51:
-        if ctrl_on and alt_on:
-            ssh.exec_command(home)
-            ctrl_on = False
-            alt_on = False
-    elif event.Ascii == 52:
-        if ctrl_on and alt_on:
-            ssh.exec_command(option)
-            ctrl_on = False
-            alt_on = False
-    # elif event.Ascii == 53:
-    #     if ctrl_on and alt_on:
-    #         hm.cancel()
-    #         exit()
-            
+try:
+    keyboard.add_hotkey("ctrl+alt+1", lambda: ssh.exec_command(forward))
+    keyboard.add_hotkey("ctrl+alt+2", lambda: ssh.exec_command(backward))
+    keyboard.add_hotkey("ctrl+alt+3", lambda: ssh.exec_command(home))
+    keyboard.add_hotkey("ctrl+alt+4", lambda: ssh.exec_command(option)
+except Exception:
+    print('Keyboard problems')
 
 try:
     
@@ -79,13 +47,8 @@ except Exception:
         timeout = 2
     )
     exit()
-ctrl_on = False
-alt_on = False
 
-hm = pyxhook.HookManager()
-hm.KeyDown = OnKeyPress
-hm.HookKeyboard()
-hm.start()
+keyboard.wait()
 
 running = True
 
