@@ -49,6 +49,7 @@ Once the device boots after Services install, new menu entry 'Rooted device sett
 
 # Remember
 * Your PC and PocketBook must be connected to the same network.
+* Your PocketBook must be turned ON when you are launching the script.
 
 # KeyBindings
 * FORWARD = CTRL + ALT + 1
