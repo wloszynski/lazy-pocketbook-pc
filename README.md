@@ -1,7 +1,14 @@
-# lazy-pocketbook-pc
-remote page changer for PocketBook e-reader.
+# LazyPocketBook PC
+LazyPocketBook is an app that allows you to change pages remotely on your PocketBook e-reader.
 
-# IN PROGRESS
+# INSTALLING GUIDE
+To use LazyPocketBook you must install Python and some Python modules.
+Make sure you have Python3 installed.
+Install paramiko, pyxhook and plyer modules.
+`pip3 install paramiko`
+`pip3 install pyxhook`
+`pip3 install plyer`
+
 
 # TO DO 
 1. Checking if ssh is active, if not exit()
