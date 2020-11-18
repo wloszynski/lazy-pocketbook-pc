@@ -2,7 +2,6 @@ import paramiko
 import pyxhook
 from plyer import notification
 import time
-import sys
 
 # Alt_L 233
 # Control_L 227
@@ -39,15 +38,9 @@ def OnKeyPress(event):
         if ctrl_on and alt_on:
             ssh.exec_command(option)
             ctrl_on = False
-            alt_on = False
-    # elif event.Ascii == 53:
-    #     if ctrl_on and alt_on:
-    #         hm.cancel()
-    #         exit()
-            
+            alt_on = False            
 
 try:
-    
     host = '169.254.0.1'
     port = 22
     username = 'root'
@@ -69,8 +62,6 @@ try:
         title = 'Connected To PocketBook',
         timeout = 2
     )
-
-
 except Exception:
     print('Lack of connection, session aborted')
     print('\007')
@@ -79,6 +70,7 @@ except Exception:
         timeout = 2
     )
     exit()
+
 ctrl_on = False
 alt_on = False
 

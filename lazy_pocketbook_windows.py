@@ -3,14 +3,11 @@ import keyboard
 from plyer import notification
 import time
 
-# Alt_L 233
-# Control_L 227
-# Shift_L 225
 try:
     keyboard.add_hotkey("ctrl+alt+1", lambda: ssh.exec_command(forward))
     keyboard.add_hotkey("ctrl+alt+2", lambda: ssh.exec_command(backward))
     keyboard.add_hotkey("ctrl+alt+3", lambda: ssh.exec_command(home))
-    keyboard.add_hotkey("ctrl+alt+4", lambda: ssh.exec_command(option)
+    keyboard.add_hotkey("ctrl+alt+4", lambda: ssh.exec_command(option))
 except Exception:
     print('Keyboard problems')
 
@@ -28,7 +25,6 @@ try:
 
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-
     ssh.connect(host, port, username, password)
 
     print('Connected to PocketBook')
@@ -54,13 +50,12 @@ running = True
 
 while running:
     time.sleep(0.1)
-    if ssh.get_transport() is not None:
-        if(ssh.get_transport().is_active() == False):
-            print('Lack of connection, session aborted')
-            print('\007')
-            notification.notify(
-                title = 'Lack of connection, session aborted',
-                timeout = 2
-            )
-            hm.cancel()
-            break
+    if(ssh.get_transport().is_active() == False):
+        print('Lack of connection, session aborted')
+        print('\007')
+        notification.notify(
+            title = 'Lack of connection, session aborted',
+            timeout = 2
+        )
+        exit()
+        break
